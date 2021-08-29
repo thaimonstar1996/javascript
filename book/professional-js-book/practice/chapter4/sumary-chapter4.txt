@@ -1,0 +1,33 @@
+When a value is assigned to a variable, the JavaScript engine must determine if it's a primitive or a reference value.
+ The six primitive types were discussed in the previous chapter: Undefined, Null, Boolean, Number, String, and Symbol. 
+ These variables are said to be accessedby value, because you are manipulating the actual value stored in the variable.
+
+When you work with reference values, you can add, change, or delete properties and methods at any time. Consider this example:
+
+let person = new Object();
+person.name = "Nicholas";
+console.log(person.name); // "Nicholas"
+Here, an object is created and stored in the variable person .
+    Next, a property called name is added and assigned the string value of "Nicholas" . 
+The new property is then accessible from that point on, until the object is destroyed or the property is explicitly removed.
+
+Primitive values can't have properties added to them even though attempting to do so won't cause an error. Here's an example:
+let name = "Nicholas";
+name.age = 27;
+console.log(name.age); // undefined
+
+Note that the instantiation of a primitive type can be accomplished using only the primitive literal form.
+ If you were to use the new keyword, JavaScript will create an Object type, but one that behaves like a primitive. Here's an example to distinguish between the two:
+let name1 = "Nicholas";
+let name2 = new String("Matt");
+name1.age = 27;
+name2.age = 26;
+console.log(name1.age); // undefined
+console.log(name2.age); // 26
+console.log(typeof name1); // string
+console.log(typeof name2); // object
+
+All global variables and functions defined with var are created as properties and methods on the window object.
+
+
+

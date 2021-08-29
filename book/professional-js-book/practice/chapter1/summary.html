@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <section>
+    <article name="js-history">
+      <pre>Javascript history:
+        1. appear in 1995  with purpose was to handle some of the input validation that had previously been left to server-side languages 
+        2. After that, No longer bound to simple data validation, JavaScript now interacts with nearly all aspects of the browser window and its contents.
+        3. JavaScript has multiple verstion => it was decided that the language must be standardized.
+            => a standard defining a new scripting language named ECMAScript
+            => Since that time, browsers have tried, with varying degrees of success, to use ECMAScript as a basis for their JavaScript implementations.
+
+        4. Though JavaScript and ECMAScript are often used synonymously, JavaScript is much more than just what is defined in ECMA-262. Indeed, 
+           a complete JavaScript implementation is made up of the following three distinct parts: 
+           <img src="https://d1rxzn6szs9jwr.cloudfront.net/premium/reeedr/books/professional-javascript-for-web-developers-4th-edition/images/000061.png" alt="">
+           <ul>
+             <li>The Core (ECMAScript)</li>
+             <li>The Document Object Model (DOM)</li>
+             <li>The Browser Object Model (BOM)</li>
+           </ul>
+        5. What exactly does ECMA-262 specify if it doesn't reference web browsers? On a very basic level, it describes the following parts of the language:
+
+          Syntax
+          Types
+          Statements
+          Keywords
+          Reserved words
+          Operators
+          Global objects
+          
+          -------------
+          - ECMAScript is simply a description of a language implementing all of the facets described in the specification. 
+          - JavaScript implements ECMAScript
+          - The sixth edition of ECMA-262:  referred to as ES6, ES2015: adds formal support for classes, modules, iterators, generators, arrow functions, promises, reflection, proxies, and a host of new data types.
+
+        6. What Does ECMAScript Conformance Mean(Sự tuân thủ EcMascript có nghĩa là gì ?):
+            ECMA-262 lays out the definition of ECMAScript conformance. To be considered an implementation of ECMAScript, an implementation must do the following:
+              - Support all "types, values, objects, properties, functions, and program syntax and semantics” as they are described in ECMA-262.
+              - Support the Unicode character standard.
+
+           Additionally, a conforming implementation may do the following:
+        
+              - Add “additional types, values, objects, properties, and functions” that are not specified in ECMA-262. ECMA-262 describes these additions as primarily new objects or new properties of objects not given in the specification.
+              - Support “program and regular expression syntax” that is not defined in ECMA-262 (meaning that the built-in regular-expression support is allowed to be altered and extended).
+        
+          => These criteria give implementation developers a great amount of power and flexibility for developing new languages based on ECMAScript, which partly accounts for its popularity.  
+      </pre>
+      <pre>
+        1. What is DOM ?
+          -  The DOM maps out an entire page as a hierarchy of nodes
+          -  By creating a tree to represent a document, the DOM allows developers an unprecedented level of control over its content and structure. Nodes can be removed, added, replaced, and modified easily by using the DOM API.
+          - For web browsers, however, the DOM has been implemented using ECMAScript and now makes up a large part of the JavaScript language.
+
+        2. Dom level: 
+          - Whereas the goal of DOM Level 1 was to map out the structure of a document, the aims of DOM Level 2 were much broader. This extension of the original DOM added support for mouse and user-interface events (long supported by DHTML), ranges, and traversals (methods to iterate over a DOM document), and support for Cascading Style Sheets (CSS) through object interfaces. 
+        
+        3. Some module of DOM level 2:
+          - DOM views:  Describes interfaces to keep track of the various views of a document 
+          - DOM events: Describes interfaces for events and event handling
+          - DOM style : Describes interfaces to deal with CSS-based styling of elements
+          - DOM traversal and range: Describes interfaces to traverse and manipulate a document tree
+
+
+      </pre>
+
+      <pre>
+        SUMMARY
+        JavaScript is a scripting language designed to interact with web pages and is made up of the following three distinct parts:
+        
+        ECMAScript, which is defined in ECMA-262 and provides the core functionality
+        The Document Object Model (DOM), which provides methods and interfaces for working with the content of a web page
+        The Browser Object Model (BOM), which provides methods and interfaces for interacting with the browser
+        There are varying levels of support for the three parts of JavaScript across the five major web browsers (Internet Explorer, Firefox, Chrome, Safari, and Opera). Support for ECMAScript 5 is generally good across all browsers, and support for ECMAScript 6 and 7 is growing. Support for the DOM varies, but Level 3 compliance is increasingly normative. The BOM, codified in HTML5, can vary from browser to browser, though there are some commonalities that are assumed to be available.        
+      </pre>
+      <p></p>
+    </article>
+  </section>
+</html>

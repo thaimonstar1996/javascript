@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <section>
+    Insert JavaScript into html page by <script>element</script>
+    1. Some attribute of script element: 
+      - async: Indicates that the script should begin downloading immediately but should not prevent other actions on the page
+       such as downloading resources or waiting for other scripts to load.
+       Valid only for external script files.
+      - defer: Indicates that the execution of the script can safely be deferred until after the document's content has been completely parsed and displayed.
+               Valid only for external scripts
+
+    2. 
+      2.1>Internal script : JavaScript is coded immediately into script element, 
+          - The JavaScript code contained inside a script element is interpreted from top to bottom. 
+          In the case of this example, a function definition is interpreted and stored inside the interpreter environment.
+           The rest of the page content is not loaded and/or displayed until after all of the code inside the <script></script> element has been evaluated.
+          - Because of the way that inline scripts are parsed, the browser sees the string "</script>" as if it were the closing </script> tag. 
+             This problem can be avoided easily by escaping the "/" character, as in this example:
+              <script>
+                function sayScript() {
+                  console.log("<\/script>");
+                }
+              </script>
+      2.2 External script: <script src="example.js"></script>
+  </section>
+  <section>
+      1. Tag placement
+      Traditionally, all <script></script> elements were placed within the <head> element on a page, as in this example:
+      The main purpose of this format was to keep external file references, both CSS files and JavaScript files, 
+      in the same area. 
+        - However, including all JavaScript files in 
+          the <head> of a document means that all of the JavaScript code must be downloaded, parsed, 
+          and interpreted before the page begins rendering (rendering begins when the browser receives the opening <body> tag). 
+        - For pages that require a lot of JavaScript code, this can cause a noticeable delay in page rendering,
+          during which time the browser will be completely blank.
+          For this reason, modern web applications typically include all JavaScript references in the <body> element,
+        => Nói chung đặt js ở cuối file sau phần content.
+          <body>
+            <!-- content here -->
+            <script src="example1.js"></script>
+            <script src="example2.js"></script>
+          </body>
+          
+      2. Defer script and Async script attribute:
+         - Defer:  The purpose of defer is to indicate that a script won't be changing the structure of the page as it executes.
+         As such, the script can be run safely after the entire page has been parsed.
+         <script defer src="example2.js"></script>
+         - Async: also similar to defer , async applies only to external scripts and signals the browser to begin downloading the file immediately. 
+              Unlike defer , scripts marked as async are not guaranteed to execute in the order in which they are specified. For example:
+              <title>Example HTML Page</title>
+              <script async src="example1.js"></script>
+              <script async src="example2.js"></script>
+             * In this code, the second script file might execute before the first, so it's important that there are no dependencies between the two                
+             * async script is to indicate that the page need not wait for the script to be downloaded and executed before continuing to load,
+               and it also need not wait for another script to load and execute before it can do the same.
+                Because of this, it's recommended that asynchronous scripts not modify the DOM as they are loading.
+             * but good web development practices dictate that you shouldn't be using it anyway.
+
+      3. THE <NOSCRIPT> ELEMENT :  <noscript> <p>This page requires a JavaScript-enabled browser.</p></noscript>
+  </section>
+  <section class="sumary">
+
+      JavaScript is inserted into HTML pages by using the <script> element. This element can be used to embed JavaScript into an HTML page, leaving it inline with the rest of the markup, or to include JavaScript that exists in an external file. The following are key points:
+
+      -To include external JavaScript files, the src attribute must be set to the URL of the file to include, 
+        which may be a file on the same server as the containing page or one that exists on a completely different domain.
+
+      -All <script> elements are interpreted in the order in which they occur on the page. 
+          The code contained within a <script> element must be completely interpreted before code in the next <script> element can begin so long as defer and async attributes are not used.
+
+      -For nondeferred scripts, the browser must complete interpretation of the code inside a <script> element before it can continue rendering the rest of the page. 
+        For this reason, <script> elements are usually included toward the end of the page, after the main content and just before the closing </body> tag.
+
+      -You can defer a script's execution until after the document has rendered by using the defer attribute.
+           Deferred scripts always execute in the order in which they are specified.
+
+      - You can indicate that a script need not wait for other scripts and also not block the document rendering by using the async attribute. 
+            Asynchronous scripts are not guaranteed to execute in the order in which they occur in the page.
+
+      - By using the <noscript> element, you can specify that content is to be shown only if scripting support isn't available on the browser.
+         Any content contained in the <noscript> element will not be rendered if scripting is enabled on the browser.
+
+      
+  </section>
+</body>
+</html>

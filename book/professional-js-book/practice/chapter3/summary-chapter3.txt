@@ -1,0 +1,457 @@
+
+1.Identifer: is the name of a variable, function, property, or function argument
+
+  a.Format: The first character must be a letter, an underscore ( _ ), or a dollar sign ( $ ).
+    All other characters may be letters, underscores, dollar signs, or numbers.
+  
+  b.Convention: 
+    -By convention, ECMAScript identifiers use camel case, meaning that the first letter is lowercase: 
+     Example: myCar, myBike,doSomethingImportant,..
+  c. Note : Keywords, reserved words, true , false ,and null cannot be used as identifiers
+
+2. Strict mode: 
+  - ECMAScript 5 introduced the concept ofstrict mode. Strict mode is a different parsing and execution model for JavaScript, 
+  where some of the erratic behavior of ECMAScript 3 is addressed and errors are thrown for unsafe activities. 
+  To enable strict mode for an entire script, include the following at the top: "use strict"
+  - You may also specify just a function to execute in strict mode by including the pragma at the top of the function body:
+      function doSomething() {
+        "use strict";
+        // function body
+      }
+
+3.KEYWORDS AND RESERVED WORDS
+  -keywords are reserved and cannot be used as identifiers or property names 
+
+
+4.Variable.
+   -ECMAScript variables are loosely typed, meaning that a variable can hold any type of data. 
+   - There are three keywords that can be used to declare a variable: var , 
+      which is available in all ECMAScript versions, and const and let , which were introduced in ECMAScript 6.
+
+  4.1.Var 
+      - declaration scope: 
+       + in function: var operator to define a variable makes it local to the function scope in which it was defined
+        example: function test() {
+                  var message = "hi"; // local variable
+                }
+                test();
+                console.log(message); // error! 
+
+       + however, possible to define a variable globally by simply omitting the var operator as follows:
+            function test() {
+              message = "hi"; // global variable
+            }
+            test();
+            console.log(message); // "hi
+            ** By removing the var operator from the example,
+             the message variable becomes global. As soon as the function test() is called,
+             the variable is defined and becomes accessible outside of the function once it has been executed.
+
+            ** Although it's possible to define global variables by omitting the var operator,
+               this approach is not recommended. Global variables defined locally are hard to maintain and cause confusion
+                because it's not immediately apparent if the omission of var was intentional. 
+                Strict mode throws a ReferenceError when an undeclared variable is assigned a value.
+                example:  "use strict";
+                          function test() {
+                            message = 'hi';
+                          }
+                          test();
+                          console.log(message);
+
+        + If you need to define more than one variable, you can do it using a single statement, separating each variable (and optional initialization) with a comma like this:
+          var message = "hi", 
+              found = false,
+               age = 29;
+
+        + var Declaration Hoisting: When using var , 
+            the following is possible because variables declared using that keyword are hoisted to the top of the function scope:
+              function foo() {
+                console.log(age);
+                var age = 26;
+              }
+              foo(); // undefined
+              This does not throw an error because the ECMAScript runtime technically treats it like this:
+                function foo() {
+                var age;
+                console.log(age);
+                age = 26;
+                }
+                foo(); // undefined
+              // 
+                console.log(x); // undefined
+                var x = 5;
+                console.log(x); // 5
+
+              //    This is “hoisting,” where the interpreter pulls all variable declarations to the top of its scope.
+                    It also allows you to use redundant var declarations without penalty:
+                    function foo() {
+                      var age = 16;
+                      var age = 26;
+                      var age = 36; 
+                      console.log(age);
+                     }
+                     foo(); // 36
+
+              //
+            if (true) {
+              var name = 'Matt';
+              console.log(name); // Matt
+            }
+            console.log(name);  // Matt
+
+             ==> if {} is a block scope => {
+            when js compile => var is hoisted to top of function => outsize of if command
+            => var name ;
+               if(true) {
+                 name = 'Mart';
+                 console.log(name); // Mart
+               }
+              
+
+  __________________________________
+  4.2 Let variable :  let operates in nearly the same way as var ,
+       but with some important differences.
+       Most notable is that let is block scoped, but var is function scoped.
+
+       Example: 
+          if (true) {
+            var name = 'Matt';
+            console.log(name); // Matt
+          }
+          console.log(name);  // Matt
+          ==> if {} is a block scope => {
+            when js compile => var is hoisted to top of function => outsize of if command
+            => var name ;
+               if(true) {
+                 name = 'Mart';
+                 console.log(name); // Mart
+               }
+               console.log(name); // Mart
+          }
+
+          ++++++++++++++
+
+          if (true) {
+            let age = 26;
+            console.log(age);  // 26
+          }
+          console.log(age);   // ReferenceError: age is not defined
+        
+        ** A let declaration also does not allow for any redundant declarations within a block scope. Doing so will result in an error:
+            var name;
+            var name;
+            let age;
+            let age; // SyntaxError; identifier 'age' has already been declared
+        
+        ** Another important behavior of let distinguishing it from var is that let declarations cannot be used in a way that assumes hoisting:
+          // name is hoisted
+          console.log(name); // undefined
+          var name = 'Matt';
+          // age is not hoisted
+          console.log(age); // ReferenceError: age is not defined
+          let age = 26;
+
+  4.3 Global declaration: 
+        Unlike the var keyword, when declaring variables using let in the global context, 
+            variables will not attach to the window object as they do with var 
+            var name = 'Matt';
+        console.log(window.name); // 'Matt'
+        let age = 26;
+        console.log(window.age);  // undefined
+        However, let declarations will still occur inside the global block scope, 
+        which will persist for the lifetime of the page.
+         Therefore, you must ensure your page does not attempt duplicate declarations in order to avoid throwing a SyntaxError 
+  
+  4.4.Conditional declaration: 
+
+
+_______________________________________
+  let Declaration in for Loops
+    for (var i = 0; i < 5; ++i) {
+    // do loop things
+      }
+      console.log(i); // 5
+      This is no longer a problem when switching to let declarations, as the iterator variable will be scoped only to the for loop block:
+
+      for (let i = 0; i < 5; ++i) {
+      // do loop things
+      }
+      console.log(i); // ReferenceError: i is not defined 
+
+      *********************
+      When using var , a frequent problem encountered was the singular declaration and modification of the iterator variable:
+      for (var i = 0; i < 5; ++i) {
+      setTimeout(() => console.log(i), 0)
+      }
+      // You might expect this to console.log 0, 1, 2, 3, 4
+      // It will actually console.log 5, 5, 5, 5, 5
+      This happens because the loop exits with its iterator variable still set to the value that caused the loop to exit: 5. When the timeouts later execute, they reference this same variable, and consequently console.log its final value.
+
+      When using let to declare the loop iterator, behind the scenes the JavaScript engine will actually declare a new iterator variable each loop iteration. Each setTimeout references that separate instance, and therefore it will console.log the expected value: the value of the iterator variable when that loop iteration was executed.
+
+      for (let i = 0; i < 5; ++i) {
+      setTimeout(() => console.log(i), 0)
+      }
+      // console.logs 0, 1, 2, 3, 4
+      This per-iteration declarative behavior is applicable for all styles of for loops, including for-in and for-of loops.
+  __________________________________
+  4.5. constant declaration:  const behaves identically to that of let but with one important difference—it must be initialized with a value,
+   and that value cannot be redefined after declaration.
+   const age = 26;
+    age = 36; // TypeError: assignment to a constant
+    // const still disallows redundant declaration
+    const name = 'Matt';
+    const name = 'Nicholas'; // SyntaxError
+    // const is still scoped to blocks
+    const name = 'Matt';
+    if (true) {
+    const name = 'Nicholas';
+    }
+    console.log(name); // Matt
+    
+    ** Note:
+    The const declaration is only enforced with respect to the reference to the variable that it points to. If a const variable references an object, it does not violate the const constraints to modify properties inside that object.
+    const person = {};
+    person.name = 'Matt'; // ok
+    __________________________________
+
+    Even though the JavaScript engine is creating new instances of let iterator variables in for loops, and even though const variables behave similarly to let variables, you cannot use const to declare for loop iterators:
+
+    for (const i = 0; i < 10; ++i) {} // TypeError: assignment to constant variable
+
+    ____
+
+    However, if you were to declare a for loop variable that is not modified, const is allowed—precisely because a new variable is declared for each iteration. This is especially relevant in the case of for-of and for-in loops:
+
+    let i = 0;
+    for (const j = 7; i < 5; ++i) {
+    console.log(j);
+    }
+    // 7, 7, 7, 7, 7
+    for (const key in {a: 1, b: 2}) {
+    console.log(key);
+    }
+    // a, b
+    for (const value of [1,2,3,4,5]) {
+    console.log(value);
+    }
+    // 1, 2, 3, 4, 5
+
+
+___________________________________________________________________________________________________________________________
+___________________________________________________________________________________________________________________________
+
+  Declaration Styles and Best Practices
+  1. Don't use var. let's use let and const.
+  2. Prefer const over let: Therefore, many developers feel it is to their advantage to, by default,
+       declare variables as const unless they know they will need to reassign its value at some point. 
+
+ 
+___________________________________________________________________________________________________________________________
+___________________________________________________________________________________________________________________________      
+
+  Data type
+
+  **. There are six simple data types (also calledprimitive types) in ECMAScript: Undefined, Null, Boolean, Number, String, and Symbol.
+      Symbol was newly introduced in ECMAScript 6.
+     There is also one complex data type called Object, which is an unordered list of name–value pairs.
+
+  **. typeof operator:  Because ECMAScript is loosely typed, 
+            there needs to be a way to determine the data type of a given variable. The typeof operator provides that information. 
+
+             "undefined" if the value is undefined
+            "boolean" if the value is a Boolean
+            "string" if the value is a string
+            "number" if the value is a number
+            "object" if the value is an object (other than a function) or null
+            "function" if the value is a function
+            "symbol" if the value is a Symbol
+
+     let message = "some string";
+    console.log(typeof message);  // "string"
+    console.log(typeof(message)); // "string"
+    console.log(typeof 95);       // "number"
+    In this example, both a variable (message) and a numeric literal are passed into the typeof operator. 
+    Note that because typeof is an operator and not a function, no parentheses are required (although they can be used).    
+
+    Note:  Technically, functions are considered objects in ECMAScript and don't represent another data type.
+           However, they do have some special properties, which necessitates differentiating between functions and other objects via the typeof operator.
+
+    1. The Undefined type: 
+      The Undefined type has only one value, which is the special value undefined . 
+      When a variable is declared using var or let but not initialized, it is assigned the value of undefined as follows:
+      let message;
+      console.log(message == undefined); // true
+
+      In this example, the variable message is declared without initializing it. When compared with the literal value of undefined , the two are equal. This example is identical to the following:
+      let message = undefined;
+      console.log(message == undefined); // true
+
+      The typeof operator returns "undefined" when called on an uninitialized variable, but it also returns "undefined" when called on an undeclared variable, which can be a bit confusing. Consider this example:
+      let message;  // this variable is declared but has a value of undefined
+            
+      // make sure this variable isn't declared
+      // let age
+            
+      console.log(typeof message); // "undefined"
+      console.log(typeof age);  // "undefined"
+
+      NOTE: Even though uninitialized variables are automatically assigned a value of undefined , 
+        it is advisable to always initialize variables. That way, when typeof returns "undefined" , 
+        you'll know that it's because a given variable hasn't been declared rather than was simply not initialized.
+        Example: let x = 0; if(x == undefined) {
+              console.log('x has not declared';)
+          };
+
+      - The value undefined is falsy; therefore, you are able to more succinctly check for it wherever you might need to
+          let message;  // this variable is declared but has a value of undefined
+          // 'age' is not declared
+          if (message) {
+          // This block will not execute
+          }
+          if (!message) {
+          // This block will execute
+          }
+          if (age) {
+          // This will throw an error
+          }
+
+    2. Null type: The Null type is the second data type that has only one value: the special value null . Logically, a null value is an empty object pointer, which is why typeof returns "object" when it's passed a null value in the following example:
+      let car = null;
+      console.log(typeof car);  // "object"
+     
+      - When defining a variable that is meant to later hold an object,it is advisable to initialize the variable to null as opposed to anything else.
+        That way, you can explicitly check for the value null to determine if the variable has been filled with an object reference at a later time, such as in this example:
+        if (car != null) {
+        // do something with car
+        }
+      - The value undefined is a derivative of null , so ECMA-262 defines them to be superficially equal as follows:
+        console.log(null == undefined);  // true
+      
+      -  Any time an object is expected but is not available, null should be used in its place.
+           This helps to keep the paradigm of null as an empty object pointer and further differentiates it from undefined
+
+    3. Boolean type
+      The Boolean type is one of the most frequently used types in ECMAScript and has only two literal values: true and false.
+      Note that the Boolean literals true and false are case–sensitive,
+         so True and False (and other mixings of uppercase and lowercase) are valid as identifiers but not as Boolean values
+      
+      Conversions of data type to Boolean:
+      String : not empty string => true <=> false;
+      Number: not zero => true <=> false;
+      Undefined: alway false;
+      Object: not null object => true <=> false
+     
+    4. The Number type:
+     integer: 5 , floating-pointer: 1.5
+     Rander of value: smallest number: Number.MIN_VALUE, largest number: Number.MAX_VALUE
+    
+    5.NaN : this is a special values called NaN: not a number. 
+      isNaN(argument)
+      When a value is passed into isNaN() , an attempt is made to convert it into a number. Some nonnumerical values convert into numbers directly,
+       such as the string "10" or a Boolean value. Any value that cannot be converted into a number causes the function to return true . 
+      console.log(isNaN(NaN));    // true
+      console.log(isNaN(10));     // false - 10 is a number
+      console.log(isNaN("10"));   // false - can be converted to number 10
+      console.log(isNaN("blue")); // true - cannot be converted to a number
+      console.log(isNaN(true));   // false - can be converted to number 1
+    
+    5. Convert to Number: Number(), parseInt(), parseFloat();
+
+    6. String type: 
+       - The String data type represents a sequence of zero or more 16-bit Unicode characters.
+           Strings can be delineated by either double quotes ( " ), single quotes ( ' ), or backticks ( ` ), so all of the following are legal:
+      let firstName = "John";
+      let lastName = 'Jacob';
+      let lastName = `Jingleheimerschmidt`  
+    
+      - The String data type includes several character literals to represent nonprintable or otherwise useful characters, as listed in the following table:
+        \n: new line; \t: tab, \b backspace, \r: carrier return, \f : form feed 
+        \\: backslash(\),  \', \"",  \unnnn : unicode
+        Exapmle: let text = 'This is a letter sigma: \u03a3.';
+        In this example, the variable text is 28 characters long even though the escape sequence is 6 characters long. 
+            The entire escape sequence represents a single character, so it is counted as such.
+            => console.log(test.length);
+        Note: If a string contains double–byte characters, the length property may not accurately return the number of characters in the string. 
+              Mitigation strategies for this are detailed in theBasic Reference Typeschapter.
+
+      - Nature of String(bản chất của chuỗi): Strings are immutable in ECMAScript, meaning that once they are created, their values cannot change. To change the string held by a variable, 
+                the original string must be destroyed and the variable filled with another string containing a new value
+      
+      - Convert to a String : 
+           + There are two ways to convert a value into a string. The first is to use the toString() method that almost every value has. 
+              This method's only job is to return the string equivalent of the value
+              let age = 11;
+              let ageAsString = age.toString();      // the string "11"
+              let found = true;
+              let foundAsString = found.toString(); // the string "true"
+             ------The toString() method is available on values that are numbers, Booleans, objects, and strings.
+               (Yes, each string has a toString() method that simply returns a copy of itself.)
+                 If a value is null or undefined , this method is not available.
+             ------However, when used on a number value, toString() actually accepts a single argument: the radix in which to output the number.
+              let num = 10;
+              console.log(num.toString());    // "10"
+              console.log(num.toString(2));   // "1010"
+              console.log(num.toString(8));   // "12"
+              console.log(num.toString(10));  // "10"
+              console.log(num.toString(16));  // "a"
+
+            + If you're not sure that a value isn't null or undefined , you can use the String() casting function, which always returns a string regardless of the value type. The String() function follows these rules:
+                    If the value has a toString() method, it is called (with no arguments) and the result is returned.
+                    If the value is null , "null" is returned.
+                    If the value is undefined , "undefined" is returned.
+                    Example: 
+                    let value1 = 10;
+                    let value2 = true;
+                    let value3 = null;
+                    let value4;
+                          
+                    console.log(String(value1));  // "10"
+                    console.log(String(value2));  // "true"
+                    console.log(String(value3));  // "null"
+                    console.log(String(value4));  // "undefined"
+               Because toString() isn't available on "null" and "undefined" , the String() method simply returns literal text for those values.
+
+      - Template literal: 
+          New in ECMAScript 6 is the capability to define strings using template literals. Unlike their single and double quoted counterparts, template literals respect new line characters, and can be defined spanning multiple lines:
+          let myMultiLineString = 'first line\nsecond line';
+          let myMultiLineTemplateLiteral = `first line
+          second line`;
+          console.log(myMultiLineString); 
+          // first line
+          // second line"
+          console.log(myMultiLineTemplateLiteral);  
+          // first line
+          // second line
+          console.log(myMultiLineString === myMultiLinetemplateLiteral);  // true    
+          As the name suggests, template literals are especially useful when defining templates, such as HTML:
+          let pageHTML = `
+          <div>
+          <a href="#">
+            <span>Jake</span>
+          </a>
+          </div>`;   
+
+       
+
+
+
+
+
+
+        
+
+
+
+        
+
+
+                          
+        
+
+
+       
+       
+
+
+
