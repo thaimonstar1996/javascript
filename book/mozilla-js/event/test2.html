@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+<body>
+  <button id="btn-change-bg">Click to change background</button>
+  <button id='btn-remove-event'>Remove event on above button</button>
+  <script>
+    function randomNumber(number) {
+      return Math.floor(Math.random()*(number + 1));
+    }
+    const btnElm = document.getElementById('btn-change-bg');
+
+    const handleChangeBg = (msg, e) => {
+      console.log(msg);
+      console.log('event');
+      console.log(e);
+      let randColor = `rgb(${randomNumber(255)},${randomNumber(255)}, ${randomNumber(255)}`;
+      e.target.style.backgroundColor = randColor;
+    }
+
+    // Ta có thẻ gọi hàm custom trong anonymouns function, mặc định truyền event object
+    // Sau đó truyền event object vào function xử lí nếu cần thiết.
+    // btnElm.addEventListener('click', function(event) {
+    //   console.log(event);
+    //   handleChangeBg("ahihi", event);
+    // });
+
+
+    // Nếu dùng function name thì cũng mặc định function đó nhận event object làm parameter
+    const handeChange2 = (e) => {
+      console.log(event);
+      let randColor = `rgb(${randomNumber(255)},${randomNumber(255)}, ${randomNumber(255)}`;
+      e.target.style.backgroundColor = randColor;
+    }
+    btnElm.addEventListener('click', handeChange2);
+
+  </script>
+</body>
+</html>

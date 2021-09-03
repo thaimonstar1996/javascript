@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+<body>
+  <button id="btn-change-bg">Click to change background</button>
+  <button id='btn-remove-event'>Remove event on above button</button>
+  <script>
+    function randomNumber(number) {
+      return Math.floor(Math.random()*(number + 1));
+    }
+    const btnElm = document.getElementById('btn-change-bg');
+    const btnRemoveElm = document.getElementById('btn-remove-event');
+
+    const handleChangeBg = () => {
+      let randColor = `rgb(${randomNumber(255)},${randomNumber(255)}, ${randomNumber(255)}`;
+      document.body.style.backgroundColor = randColor;
+    }
+    // btnElm.onblur = handleChangeBg;
+    // btnElm.onmouseover = handleChangeBg;
+    // window.onkeydown = handleChangeBg;
+
+    btnElm.addEventListener('click', handleChangeBg);
+    btnRemoveElm.addEventListener('click', () => {
+      btnElm.removeEventListener('click', handleChangeBg);
+    })
+
+  </script>
+</body>
+</html>

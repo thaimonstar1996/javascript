@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form action="submit" method="GET" id="form-register">
+    <div>
+      <label for="fname">Firstname</label>
+      <input type="text" id="fname">
+    </div>
+    <div>
+      <label for="lname">Lastname</label>
+      <input type="text" id="lname">
+    </div>
+    <div>
+      <input type="submit" value="Submit">
+    </div>
+  </form>
+  <p></p>
+  <script>
+    const form = document.getElementById('form-register');
+    const fname = document.getElementById('fname');
+    const lname = document.getElementById('lname');
+    const paraError = document.querySelector('p');
+    form.onsubmit = (event) => {
+      if(fname.value === '' || lname.value === '') {
+        event.preventDefault();
+        paraError.textContent = 'You need to fill both first name and last name';
+      } else {
+        paraError.textContent = 'Sumitted';
+      }
+    }
+  </script>
+</body>
+</html>

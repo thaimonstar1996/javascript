@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="parent">
+    <button id="target">click me</button>
+  </div>
+  <script>
+    const parent = document.getElementById('parent');
+    const target = document.getElementById('target');
+
+    target.addEventListener('click', (e) => {
+      e.stopPropagation();
+      console.log('target buble 1');
+    }, false);
+    target.addEventListener('click', (e) => {
+      console.log('target capture');
+    }, true);
+    target.addEventListener('click', (e) => {
+      console.log('target buble 2');
+    } , false);
+    parent.addEventListener('click', (e) => {
+      console.log('parent capture');
+    }, true);
+    parent.addEventListener('click', (e) => {
+      console.log('parent buble');
+    }, false);
+  </script>
+  <!-- Như ta thấy sự kiện sẽ xảy ra theo thứ tự 
+  parent capture => children capture => target capture => target bubble => childen buble => parent buble
+  Vậy thì cùng 1 sự kiện click nhưng ta có thể đăng kí xử lí sự kiện ở những phase khác nhau: phase capture, phase target, phase buble.
+  Nếu ta đăng kí sự kiên parent ở phase capture và phase buble thì xử lí theo thứ tự parrent capture trước rới mới tới parent bubble.
+  Ta có thể ngừng event propagation bằng cách e.stopPropagation() thì sự lan truyền sẽ không lên nữa, nếu bỏ comment ở 
+  dòng 18 thì sự kiện parent buble sẽ không xảy ra.
+  => parent capture => target capture => target buble 1 => target buble 2 
+  
+  -->
+</body>
+</html>

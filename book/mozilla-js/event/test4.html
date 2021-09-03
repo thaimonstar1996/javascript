@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <ul>
+    <li>Li 1</li>
+    <li>Li 2</li>
+    <li>Li 3</li>
+  </ul>
+  <!-- Khi ta click li thì một event xảy ra với target là li , sự kiện này
+  kích hoạch cả sự kiện click của ul(là cha của li), đó gọi là bubling. Tuy nhiên đối tượng
+  event mà ta bắt trên ul là event của li .
+    Nếu ta click ul thì chỉ có event xảy ra với target là ul. Hãy kiểm tra event này, nó ko tác động
+    gì tới sự kiện click mà li lắng nghe.
+  -->
+  <script>
+    const ulElm = document.querySelector('ul');
+    const listLiElm = document.querySelectorAll('li');
+    const bodyElm = document.querySelector('body');
+    for(let i = 0; i < listLiElm.length; i++) {
+      listLiElm[i].addEventListener('click', (e) => {
+        console.log('li event');
+        console.log(e);
+        e.target.style.border = '2px solid blue';
+      }, true );
+    }
+    ulElm.addEventListener('click', (e) => {
+      console.log('ul event');
+      console.log(e);
+      ulElm.style.border = '5px solid red';
+    });
+    bodyElm.addEventListener('click', (e) => {
+      console.log('body event');
+      console.log(e);
+      bodyElm.style.backgroundColor = 'rgb(245,245,245)';
+    })
+  </script>
+</body>
+</html>
