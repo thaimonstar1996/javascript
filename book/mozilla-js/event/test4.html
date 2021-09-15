@@ -25,18 +25,20 @@
     for(let i = 0; i < listLiElm.length; i++) {
       listLiElm[i].addEventListener('click', (e) => {
         console.log('li event');
-        console.log(e);
+        console.log(e.target);
         e.target.style.border = '2px solid blue';
       }, true );
     }
     ulElm.addEventListener('click', (e) => {
       console.log('ul event');
-      console.log(e);
+      console.log(e.target);
+      console.log(e.currentTarget);
       ulElm.style.border = '5px solid red';
     });
     bodyElm.addEventListener('click', (e) => {
       console.log('body event');
-      console.log(e);
+      console.log(e.target);      
+      console.log(e.currentTarget);
       bodyElm.style.backgroundColor = 'rgb(245,245,245)';
     })
   </script>
